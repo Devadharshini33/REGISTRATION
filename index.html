@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+</head>
+
+<style>
+    body{
+        background-color: #d3cece;
+    }
+   .con{
+       display: flex;
+       justify-content: center;
+       flex-direction: column;
+       align-items: center;
+       margin-top: 10%;
+   }
+  .row{
+      padding: 10px;
+  }
+  .crt{
+      color: red;
+  }
+button{
+    background-color: rgb(167, 167, 167);
+    padding: 8px;
+    width: 90px;
+    border-radius: 4px;
+   
+}
+
+button:hover{
+    background-color: rgb(228, 222, 222);
+}
+.txt{
+    font-size: large;
+    
+}
+input{
+    border-radius:14px;
+    padding:3px;
+}
+textarea{
+    border-radius: 9px;
+}
+
+input:hover{
+    background-color: rgb(223, 217, 217);
+}
+.back{
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+     margin: 10px;
+     padding: 20px;
+     background-color: #cec9c9;
+}
+</style>
+<body>
+    <div class="con">
+
+        <div class="back">
+    <table class="con1">
+        <h1>Registration Form</h1>
+        <form class="frm">
+            <tr class="row">
+                <td class="row"><lable class="txt">Enter your Name</lable></td>
+                <td>  <input  id="name" type="text" onblur="validateName()" ></td>
+            </tr>
+            <tr>
+                <td>
+
+                </td>
+                <td>
+                     <div id="ans" class="crt"> </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="row"> <lable  class="txt">Enter your Mobile No</lable></td>
+                <td> <input id="mob"  type="text" onblur="validatemob()"></td>
+            </tr>
+            <tr>
+                <td>
+
+                </td>
+                <td>
+                     <div id="ans1" class="crt"> </div>
+                </td>
+            </tr>
+           
+            <tr>
+                <td class="row"><lable   class="txt">Enter your Password</lable></td>
+                <td> <input type="text" id="pass" ></td>
+            </tr>  
+            
+            <tr>
+                <td>
+
+                </td>
+                <td>
+                     <div id="ans2" class="crt"> </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="row"><label   class="txt">Enter your E-mail</label></td>
+              <td> <input type="text" id="mail" onblur="validateEmail()"> </tr></td>
+            </tr>
+
+            <tr>
+                <td>
+
+                </td>
+                <td>
+                     <div id="ans3" class="crt"> </div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="row"><label   class="txt">Enter your College</label></td>
+              <td> <input type="text" id="clg" > </tr></td>
+            </tr>
+
+            <tr>
+                <td>
+
+                </td>
+                <td>
+                     <div id="ans3" class="crt"> </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="row" >Gender</td>
+                <td class="row">
+                    <input type="radio" id="gender" value="male" name="gen">
+                
+                    <lable for="male">Male</lable>
+
+                    <input type="radio" id="gemder" value="female" name="gen">
+                
+                    <lable for="female">Female</lable>
+                </td>
+               
+            </tr>
+
+
+            <tr>
+                <td class="row"><label for="years">>Which year are you studying ?</label</td>
+                <td class="row">
+                 <o
+
+                </td>
+               
+            </tr>
+          
+                   
+                
+               
+
+            <tr>
+                <td class="row"> <label  class="txt">Enter your Address</label></td>
+                <td>     <textarea rows="4" cols="23"></textarea></td>
+               
+            </tr>
+
+
+
+            <tr>
+                <td class="row"><label  class="txt">How did you hear about the event?</label></td>
+                <td>
+                <input type="radio" value="frnd" name="frm">
+                <lable for="frnd">Friend or collegue</lable>
+             </tr>
+             <tr>
+                 <td></td>
+              <td> 
+                <input type="radio" value="search" name="frm">
+                <lable for="search">Advertisement</lable>
+            </td>
+            </tr>
+            <td> </td>
+            <td>
+                <input type="radio" value="search" name="frm" >
+                <lable for="search">Search Engine</lable>
+            </td>
+
+            </tr>
+
+            <tr>
+                <td></td>
+                </tr>
+           
+            
+            </form>  
+
+            
+    </table>
+    <button onclick="registered()">Register</button>
+</div>
+   
+
+</div>
+
+
+<script>
+    function registered(){
+        document.getElementById("name").value=""
+        document.getElementById("mob").value="";
+        document.getElementById("mail").value="";
+        document.getElementById("pass").value="";
+
+        var element=document.getElementsByName("gen")
+        element[0].checked=false
+        alement[1].checked=false
+
+
+
+
+    }
+    function validateName(){
+        var name=document.getElementById("name").value
+        var nameExp=/^[a-zA-Z ]{4,20}$/
+
+        if(nameExp.test(name)){
+           
+        }
+        else{
+            document.getElementById("ans").innerText="invalid username"
+        }
+
+    }
+  
+
+    function validatemob(){
+        var mob=document.getElementById("mob").value;
+        var mobExp=/^[0-9]{10}$/
+      
+        if(mobExp.test(mob)&&mob.length==10){
+           
+        }
+        else{
+            document.getElementById("ans1").innerText="invalid mobile number"
+        }
+
+    }
+
+    function validateEmail(){
+        var mail=document.getElementById("mail").value;
+
+       var mailExp=/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+
+       if(mailExp.test(mail)){
+
+      }
+      else{
+    document.getElementById("ans3").innerText="invalid gmail"
+    }
+   
+
+}
+</script>
+</body>
+</html>
