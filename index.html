@@ -24,7 +24,7 @@
   .crt{
       color: red;
   }
-button{
+.rbtn{
     background-color: rgb(167, 167, 167);
     padding: 8px;
     width: 90px;
@@ -59,8 +59,36 @@ input:hover{
      padding: 20px;
      background-color: #cec9c9;
 }
+.capcha{
+    background-color: #ccc5c5;;
+    margin: 30px;
+    padding: 20px;
+    border-radius: 30px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    
+}
+#capcha-text {
+    margin: 5px;
+}
+#image{
+    margin: 15px;
+    text-align: center;
+}
+#btn{
+    width: 40%;
+    margin-left: 50px;
+}
+#para{
+    text-align: center;
+}
+
+.refresh-btn{
+    margin-left: 60px;
+    border-radius:4px;
+    padding: 5px;
+} 
 </style>
-<body>
+<body onload="Capchagenerate()">
     <div class="con">
 
         <div class="back">
@@ -95,7 +123,7 @@ input:hover{
            
             <tr>
                 <td class="row"><lable   class="txt">Enter your Password</lable></td>
-                <td> <input type="text" id="pass" ></td>
+                <td> <input type="text" id="pass" onblur="validatePass()"></td>
             </tr>  
             
             <tr>
@@ -143,7 +171,7 @@ input:hover{
                 
                     <lable for="male">Male</lable>
 
-                    <input type="radio" id="gemder" value="female" name="gen">
+                    <input type="radio" id="geNder" value="female" name="gen">
                 
                     <lable for="female">Female</lable>
                 </td>
@@ -151,22 +179,15 @@ input:hover{
             </tr>
 
 
-            <tr>
-                <td class="row"><label for="years">>Which year are you studying ?</label</td>
-                <td class="row">
-                 <o
 
-                </td>
-               
-            </tr>
           
                    
                 
                
 
             <tr>
-                <td class="row"> <label  class="txt">Enter your Address</label></td>
-                <td>     <textarea rows="4" cols="23"></textarea></td>
+                <td class="row"> <label  class="txt" >Enter your Address</label></td>
+                <td>     <textarea rows="4" cols="23" id="add"></textarea></td>
                
             </tr>
 
@@ -197,12 +218,36 @@ input:hover{
                 <td></td>
                 </tr>
            
+               
+
+    
             
             </form>  
 
+          
+
             
     </table>
-    <button onclick="registered()">Register</button>
+    
+    <div class="capcha">
+        <input id="capcha-text" type="text" placeholder="Capcha code" onkeyup="validatecapcha()">
+        
+        <div id="image">
+           
+        </div>
+        
+    
+       <button class="refresh-btn"   onclick="refresh()">Refresh</button>
+       
+
+       <p id="para"></p>
+
+    </div>
+
+
+
+
+   <button onclick="registered()" id="rbtn1" class="rbtn" disabled="TRUE">Register</button>
 </div>
    
 
@@ -210,7 +255,65 @@ input:hover{
 
 
 <script>
+    
+    let chars="";
+    function refresh(){
+        chars=""
+        document.getElementById("para").innerText=""
+        rbtn1.disabled=true;
+        Capchagenerate();
+    }
+    function Capchagenerate(){
+        
+        document.getElementById("capcha-text").value="";
+
+        capcha=document.getElementById("image");
+        //let chars="";
+        const randomChar="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        for(var i=1;i<=5;i++){
+            chars+=randomChar.charAt(Math.random()*randomChar.length)
+        }
+      //  console.log(chars)
+        capcha.innerHTML=chars;
+
+    }
+    function validatecapcha(){
+        timeout=setTimeout(validatecapcha1,5000)
+    }
+    function validatecapcha1(){
+        const para=document.getElementById("para");
+        const user_capcha=document.getElementById("capcha-text").value;
+       
+        const rbtn1=document.getElementById("rbtn1")
+        if(user_capcha==chars){
+            
+            para.innerText="Correct"
+            rbtn1.disabled=false;
+        }
+        else{
+            para.innerText="Incorrect"
+        }
+    }
+    function validatePass(){
+        var pass=document.getElementById("pass").value;
+        var upperCase=/[A-Z]{1}/.test(pass);
+        var lowerCase=/[a-z]/.test(pass);
+        var specialSym=/[$&+,:;=?@#|'<>.-^*()%!]{1}/.test(pass);
+        console.log(upperCase)
+        console.log(lowerCase)
+        console.log(specialSym)
+        if(upperCase&&lowerCase&&specialSym){
+            document.getElementById("ans2").innerText=""
+        }
+        else{
+            document.getElementById("ans2").innerText="invalid password"
+        }
+
+        
+    }
     function registered(){
+        alert("Successfully registered")
+
         document.getElementById("name").value=""
         document.getElementById("mob").value="";
         document.getElementById("mail").value="";
@@ -218,8 +321,15 @@ input:hover{
 
         var element=document.getElementsByName("gen")
         element[0].checked=false
-        alement[1].checked=false
+        element[1].checked=false
 
+        var ele1=document.getElementsByName("frm")
+        ele1[0].checked=false;
+        ele1[1].checked=false;
+        ele1[2].checked=false;
+        console.log( document.getElementById("add").value)
+        document.getElementById("add").value=""
+        
 
 
 
@@ -229,7 +339,7 @@ input:hover{
         var nameExp=/^[a-zA-Z ]{4,20}$/
 
         if(nameExp.test(name)){
-           
+            document.getElementById("ans").innerText=""
         }
         else{
             document.getElementById("ans").innerText="invalid username"
@@ -243,7 +353,7 @@ input:hover{
         var mobExp=/^[0-9]{10}$/
       
         if(mobExp.test(mob)&&mob.length==10){
-           
+           document.getElementById("ans1").innerText=""
         }
         else{
             document.getElementById("ans1").innerText="invalid mobile number"
@@ -254,10 +364,10 @@ input:hover{
     function validateEmail(){
         var mail=document.getElementById("mail").value;
 
-       var mailExp=/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+       var mailExp=/^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/
 
        if(mailExp.test(mail)){
-
+        document.getElementById("ans3").innerText=""
       }
       else{
     document.getElementById("ans3").innerText="invalid gmail"
